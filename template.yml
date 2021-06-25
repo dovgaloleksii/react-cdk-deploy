@@ -1,0 +1,78 @@
+---
+Mappings:
+  environmentSettings:
+    dev:
+      domainName: test.pro
+      siteSubDomain: 5DE4B68
+      removalPolicy: destroy
+    staging:
+      domainName: test.pro
+      siteSubDomain: staging
+      removalPolicy: destroy
+    prod:
+      domainName: test.pro
+      siteSubDomain: prod
+      removalPolicy: retain
+Parameters:
+  environmentName:
+    Type: String
+    Default: dev
+Outputs:
+  Site:
+    Value:
+      Fn::Join:
+        - ""
+        - - https://
+          - Fn::FindInMap:
+              - environmentSettings
+              - Ref: environmentName
+              - siteSubDomain
+          - "."
+          - Fn::FindInMap:
+              - environmentSettings
+              - Ref: environmentName
+              - domainName
+Resources:
+  SiteBucket397A1860:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName:
+        Fn::Join:
+          - ""
+          - - Fn::FindInMap:
+                - environmentSettings
+                - Ref: environmentName
+                - siteSubDomain
+            - "."
+            - Fn::FindInMap:
+                - environmentSettings
+                - Ref: environmentName
+                - domainName
+      Tags:
+        - Key: siteItems
+          Value:
+            Fn::Join:
+              - ""
+              - - Fn::FindInMap:
+                    - environmentSettings
+                    - Ref: environmentName
+                    - siteSubDomain
+                - "."
+                - Fn::FindInMap:
+                    - environmentSettings
+                    - Ref: environmentName
+                    - domainName
+      WebsiteConfiguration:
+        ErrorDocument: index.html
+        IndexDocument: index.html
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: StaticSite/SiteBucket/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAAEyWNwQrCMBBEv8V7um0oeBZ7FqV+QUhXSUOTsNmth5B/19jTvJmBGQ1aDzCcLuaTO7v4vthICOXJxno1vcLNpOTCu+HDkNmQkZq5CydhNcWQmcRyy2bMUchiVW0tj1CuYj3+u4NqVSEuCGvud32G8fe8Zuc6ksBuQ5gP/QJ9Rk5NlgAAAA==
+    Metadata:
+      aws:cdk:path: StaticSite/CDKMetadata/Default
+

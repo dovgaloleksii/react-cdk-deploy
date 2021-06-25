@@ -1,0 +1,6 @@
+{
+    "context": {
+      "environment": "dev"
+    },
+    "app": "ts-node index.ts"
+}  
