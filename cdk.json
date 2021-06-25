@@ -1,6 +1,9 @@
 {
     "context": {
-      "environment": "dev"
+      "environment": "default environment",
+      "reactBuildDir": "./build",
+      "defaultDomainName": "Domain name",
+      "defaultHostedZoneId": "HostZoneId in your account"
     },
     "app": "ts-node index.ts"
 }  

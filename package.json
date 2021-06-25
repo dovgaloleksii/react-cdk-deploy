@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "synth": "cdk synth"
+    "synth": "cdk synth --profile default",
+    "deploy": "cdk deploy --profile default --parameters environmentName=dev",
+    "destroy": "cdk destroy --profile default --parameters environmentName=dev"
   },
   "author": "",
   "license": "ISC",
